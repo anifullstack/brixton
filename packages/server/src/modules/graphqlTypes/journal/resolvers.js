@@ -106,7 +106,13 @@ export default pubsub => ({
       });
       return journal;
     },
-    async deleteJournal(obj, { input: { id, studentId } }, context) {
+    async deleteJournal(
+      obj,
+      {
+        input: { id, studentId }
+      },
+      context
+    ) {
       await context.Student.deleteJournal(id);
       // publish for edit student page
       pubsub.publish(JOURNAL_SUBSCRIPTION, {
