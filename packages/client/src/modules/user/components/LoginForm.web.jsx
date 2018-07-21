@@ -76,41 +76,53 @@ const LoginForm = ({ handleSubmit, submitting, error, values, t }) => {
   const buttonsLength = [facebook.enabled, linkedin.enabled, google.enabled, github.enabled].filter(button => button)
     .length;
   return (
-    <Form name="login" onSubmit={handleSubmit}>
-      <Field
-        name="usernameOrEmail"
-        component={RenderField}
-        type="text"
-        label={t('login.form.field.usenameOrEmail')}
-        value={values.usernameOrEmail}
-      />
-      <Field
-        name="password"
-        component={RenderField}
-        type="password"
-        label={t('login.form.field.pass')}
-        value={values.password}
-      />
-      <div className="text-center">{error && <Alert color="error">{error}</Alert>}</div>
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <div className="text-center">
-          <Button size="lg" style={{ minWidth: '320px' }} color="primary" type="submit" disabled={submitting}>
-            {t('login.form.btnSubmit')}
-          </Button>
+    <div>
+      <Form name="login" onSubmit={handleSubmit}>
+        <Field
+          name="usernameOrEmail"
+          component={RenderField}
+          type="text"
+          //label={t('login.form.field.usenameOrEmail')}
+          placeholder={t('login.form.field.usenameOrEmail')}
+          value={values.usernameOrEmail}
+        />
+        <Field
+          name="password"
+          component={RenderField}
+          type="password"
+          //label={t('login.form.field.usenameOrEmail')}
+          placeholder={t('login.form.field.pass')}
+          value={values.password}
+        />
+        <div className="text-center">{error && <Alert color="error">{error}</Alert>}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <div className="text-center">
+            <Button
+              style={{ minWidth: '354px', marginTop: '10px', height: '44px' }}
+              color="info"
+              type="submit"
+              disabled={submitting}
+              block
+            >
+              {t('login.form.btnSubmit')}
+            </Button>
+          </div>
+          {renderSocialButtons(buttonsLength, t)}
         </div>
-        {renderSocialButtons(buttonsLength, t)}
-      </div>
+
+        <div className="text-center" style={{ marginTop: '10px', marginBottom: '-3rem' }}>
+          <span style={{ lineHeight: '58px' }}>{t('login.btn.notReg')}</span>
+          <NavLink to="/register" activeClassName="active">
+            {t('login.btn.sign')}
+          </NavLink>
+        </div>
+      </Form>
       <div className="text-center" style={{ marginTop: 10 }}>
-        <Link to="/forgot-password">{t('login.btn.forgotPass')}</Link>
+        <Link style={{ color: 'black' }} to="/forgot-password">
+          {t('login.btn.forgotPass')}
+        </Link>
       </div>
-      <hr />
-      <div className="text-center" style={{ marginBottom: 16 }}>
-        <span style={{ lineHeight: '58px' }}>{t('login.btn.notReg')}</span>
-        <NavLink className="btn btn-primary" to="/register" activeClassName="active" style={{ margin: 10 }}>
-          {t('login.btn.sign')}
-        </NavLink>
-      </div>
-    </Form>
+    </div>
   );
 };
 

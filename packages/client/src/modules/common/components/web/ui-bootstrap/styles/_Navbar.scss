@@ -1,0 +1,33 @@
+$grad: linear-gradient(to left, #6dd5ed, #2193b0);
+
+.navbar{
+  background: $grad;
+ // background-color: darkorange;
+}
+
+.nav-link{
+    opacity: 1;
+    font-style: normal;
+    letter-spacing: 0.025rem;
+    text-decoration: none;
+     color: #fff;
+   }
+
+ .nav-link:hover{
+   color:#fff;
+   border-bottom: 1px solid white;
+   transition: border-bottom-color .3s ease-in-out;
+} 
+
+ .active{
+    color: #fff;
+    font-weight: 500;
+     border-bottom: 1px solid white;
+     transition: border-bottom-color .3s ease-in-out;
+ }
+
+ .navbar-brand{
+    font-weight: 500;
+     border-bottom-color: transparent;
+ }
+   
