@@ -19,7 +19,9 @@ const defaults = {
 const resolvers = {
   Query: {
     journalState: (_, args, { cache }) => {
-      const { journal: { journal } } = cache.readQuery({
+      const {
+        journal: { journal }
+      } = cache.readQuery({
         query: JOURNAL_QUERY_CLIENT
       });
       return {

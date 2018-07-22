@@ -18,7 +18,11 @@ export default class StudentList extends React.PureComponent {
 
   keyExtractor = item => item.node.id;
 
-  renderItemIOS = ({ item: { node: { id, firstName, lastName } } }) => {
+  renderItemIOS = ({
+    item: {
+      node: { id, firstName, lastName }
+    }
+  }) => {
     const { deleteStudent, navigation } = this.props;
     return (
       <SwipeAction
@@ -33,7 +37,11 @@ export default class StudentList extends React.PureComponent {
     );
   };
 
-  renderItemAndroid = ({ item: { node: { id, firstName, lastName } } }) => {
+  renderItemAndroid = ({
+    item: {
+      node: { id, firstName, lastName }
+    }
+  }) => {
     const { deleteStudent, navigation } = this.props;
     return (
       <TouchableOpacity style={styles.studentWrapper} onPress={() => navigation.navigate('StudentJournal', { id })}>

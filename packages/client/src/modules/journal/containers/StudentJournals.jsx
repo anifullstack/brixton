@@ -95,7 +95,16 @@ class StudentJournals extends React.Component {
     this.subscription = subscribeToMore({
       document: JOURNAL_SUBSCRIPTION,
       variables: { studentId },
-      updateQuery: (prev, { subscriptionData: { data: { journalUpdated: { mutation, id, node } } } }) => {
+      updateQuery: (
+        prev,
+        {
+          subscriptionData: {
+            data: {
+              journalUpdated: { mutation, id, node }
+            }
+          }
+        }
+      ) => {
         let newResult = prev;
 
         if (mutation === 'CREATED') {
@@ -135,7 +144,14 @@ const StudentJournalsWithApollo = compose(
             }
           },
           updateQueries: {
-            student: (prev, { mutationResult: { data: { addJournal } } }) => {
+            student: (
+              prev,
+              {
+                mutationResult: {
+                  data: { addJournal }
+                }
+              }
+            ) => {
               if (prev.student) {
                 return AddJournal(prev, addJournal);
               }
@@ -178,7 +194,14 @@ const StudentJournalsWithApollo = compose(
             }
           },
           updateQueries: {
-            student: (prev, { mutationResult: { data: { deleteJournal } } }) => {
+            student: (
+              prev,
+              {
+                mutationResult: {
+                  data: { deleteJournal }
+                }
+              }
+            ) => {
               if (prev.student) {
                 return DeleteJournal(prev, deleteJournal.id);
               }

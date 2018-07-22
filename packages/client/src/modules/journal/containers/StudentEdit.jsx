@@ -107,7 +107,14 @@ export default compose(
             }
           },
           updateQueries: {
-            students: (prev, { mutationResult: { data: { addStudent } } }) => {
+            students: (
+              prev,
+              {
+                mutationResult: {
+                  data: { addStudent }
+                }
+              }
+            ) => {
               return AddStudent(prev, addStudent);
             }
           }

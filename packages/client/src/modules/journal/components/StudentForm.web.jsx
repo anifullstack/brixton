@@ -62,7 +62,12 @@ const StudentFormWithFormik = withFormik({
     content: props.student && props.student.content
   }),
   validate: values => validate(values),
-  handleSubmit(values, { props: { onSubmit } }) {
+  handleSubmit(
+    values,
+    {
+      props: { onSubmit }
+    }
+  ) {
     values.birthDate = moment(values.birthDate, 'MM/DD/YYYY').valueOf();
     console.log('StudentFormWeb', 'StudentFormWithFormik', 'handleSubmit', 'values.birthDate', values.birthDate);
     onSubmit(values);

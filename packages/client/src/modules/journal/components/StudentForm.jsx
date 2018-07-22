@@ -42,7 +42,12 @@ const StudentFormWithFormik = withFormik({
     content: props.student && props.student.content
   }),
   validate: values => validate(values),
-  handleSubmit(values, { props: { onSubmit } }) {
+  handleSubmit(
+    values,
+    {
+      props: { onSubmit }
+    }
+  ) {
     onSubmit(values);
   },
   displayName: 'StudentForm' // helps with React DevTools

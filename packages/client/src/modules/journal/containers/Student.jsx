@@ -98,7 +98,16 @@ class Student extends React.Component {
     this.subscription = subscribeToMore({
       document: STUDENTS_SUBSCRIPTION,
       variables: { endCursor },
-      updateQuery: (prev, { subscriptionData: { data: { studentsUpdated: { mutation, node } } } }) => {
+      updateQuery: (
+        prev,
+        {
+          subscriptionData: {
+            data: {
+              studentsUpdated: { mutation, node }
+            }
+          }
+        }
+      ) => {
         let newResult = prev;
 
         if (mutation === 'CREATED') {
@@ -166,7 +175,14 @@ export default compose(
             }
           },
           updateQueries: {
-            students: (prev, { mutationResult: { data: { deleteStudent } } }) => {
+            students: (
+              prev,
+              {
+                mutationResult: {
+                  data: { deleteStudent }
+                }
+              }
+            ) => {
               return DeleteStudent(prev, deleteStudent.id);
             }
           }
