@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { PageLayout, Table, Button } from '../../common/components/web';
+
 import moment from 'moment';
+import { PageLayout, Table, Button } from '../../common/components/web';
 
 import settings from '../../../../../../settings';
 
@@ -23,7 +24,7 @@ export default class StudentList extends React.PureComponent {
   renderLoadMore = (students, loadMoreRows) => {
     if (students.pageInfo.hasNextPage) {
       return (
-        <Button id="load-more" color="primary" onClick={loadMoreRows}>
+        <Button id="load-more" onClick={loadMoreRows}>
           Load more ...
         </Button>
       );
@@ -88,17 +89,24 @@ export default class StudentList extends React.PureComponent {
           key: 'actions',
           width: 60,
           render: (text, record) => (
-            <div>
+            <div className="d-flex justify-content-between">
               <Link className="student-link" to={`/student/${record.id}`}>
-                <Button color="primary" size="sm" className="delete-button">
+                <Button
+                  className="btn-outline-success"
+                  style={{ width: '72px', borderRadius: '15px' }}
+                  //color="primary"
+                  //size="sm"
+                  //className="delete-button"
+                >
                   Edit
                 </Button>
               </Link>
 
               <Button
-                color="primary"
-                size="sm"
-                className="delete-button"
+                className="btn-outline-danger"
+                // color="primary"
+                // size="sm"
+                // className="delete-button"
                 onClick={() => this.handleDeleteStudent(record.id)}
               >
                 Delete
@@ -112,7 +120,7 @@ export default class StudentList extends React.PureComponent {
           {this.renderMetaData()}
           <h2>Students</h2>
           <Link to="/student/0">
-            <Button color="primary">Add</Button>
+            <Button style={{ width: '72px', borderRadius: '15px' }}>Add</Button>
           </Link>
           <h1 />
           <Table dataSource={students.edges.map(({ node }) => node)} columns={columns} />

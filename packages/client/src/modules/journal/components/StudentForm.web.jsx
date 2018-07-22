@@ -39,7 +39,7 @@ const StudentForm = ({ values, handleSubmit, submitting }) => {
         value={values.birthDate}
       />
       <Field name="content" component={RenderField} type="text" placeholder="Comment" value={values.content} />
-      <Button color="primary" type="submit" disabled={submitting}>
+      <Button style={{ marginTop: '10px', height: '44px' }} type="submit" disabled={submitting} block>
         Save
       </Button>
     </Form>

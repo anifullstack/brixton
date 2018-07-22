@@ -29,56 +29,51 @@ const StudentJournalForm = ({ values, handleSubmit, journal, subjects, activitys
   }
   return (
     <Form name="journal" onSubmit={handleSubmit}>
-      <Row>
-        <Col xs={2}>
-          <Label>{journal.id === null ? 'Add journal' : 'Edit journal'}</Label>
-        </Col>
-        <Col xs={8}>
-          <Field
-            name="activityDate"
-            component={RenderField}
-            type="text"
-            value={values.activityDate}
-            placeholder="Activity Date (MM/DD/YYYY)"
-          />
-          <Field component={ReactSelect} type="select" name="subject" value={values.subject} placeholder="subject">
-            <option value="placeholder">Select Subject </option>
-            {subjects &&
-              subjects.map(s => {
-                return (
-                  <option key={s.id} value={s.name}>
-                    {s.name}
-                  </option>
-                );
-              })}
-          </Field>
-          <Field name="activity" component={RenderField} type="select" value={values.activity} placeholder="activity">
-            <option value="placeholder">Select Activity </option>
-            {activitys &&
-              activitys.map(a => {
-                return (
-                  a.subject &&
-                  a.subject === values.subject && (
-                    <option key={a.id} value={a.name}>
-                      {a.name}
-                    </option>
-                  )
-                );
-              })}
-          </Field>
+      <Label style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
+        {journal.id === null ? 'Add journal' : 'Edit journal'}
+      </Label>
 
-          <Field name="content" component={RenderField} type="text" value={values.content} placeholder="Journal" />
-        </Col>
-        <Col xs={2}>
-          <Button color="primary" type="submit" className="float-right">
-            Save
-          </Button>
-        </Col>
-      </Row>
+      <Field
+        name="activityDate"
+        component={RenderField}
+        type="text"
+        value={values.activityDate}
+        placeholder="Activity Date (MM/DD/YYYY)"
+      />
+      <Field component={ReactSelect} type="select" name="subject" value={values.subject} placeholder="subject">
+        <option value="placeholder">Select Subject </option>
+        {subjects &&
+          subjects.map(s => {
+            return (
+              <option key={s.id} value={s.name}>
+                {s.name}
+              </option>
+            );
+          })}
+      </Field>
+      <Field name="activity" component={RenderField} type="select" value={values.activity} placeholder="activity">
+        <option value="placeholder">Select Activity </option>
+        {activitys &&
+          activitys.map(a => {
+            return (
+              a.subject &&
+              a.subject === values.subject && (
+                <option key={a.id} value={a.name}>
+                  {a.name}
+                </option>
+              )
+            );
+          })}
+      </Field>
+
+      <Field name="content" component={RenderField} type="text" value={values.content} placeholder="Journal" />
+      <Button style={{ marginTop: '10px', height: '44px' }} type="submit" block>
+        Save
+      </Button>
     </Form>
   );
 };
-
+//btn//className="float-right"
 StudentJournalForm.propTypes = {
   handleSubmit: PropTypes.func,
   journal: PropTypes.object,

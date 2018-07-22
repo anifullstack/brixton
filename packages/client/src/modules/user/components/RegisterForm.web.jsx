@@ -53,7 +53,7 @@ const RegisterForm = ({ values, handleSubmit, submitting, error, t }) => {
       />
       <div className="text-center">
         {error && <Alert color="error">{error}</Alert>}
-        <Button color="primary" type="submit" disabled={submitting} style={{ height: '44px' }} block>
+        <Button type="submit" disabled={submitting} style={{ height: '44px' }} block>
           {t('reg.form.btnSubmit')}
         </Button>
       </div>

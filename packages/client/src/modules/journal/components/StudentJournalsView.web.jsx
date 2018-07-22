@@ -119,11 +119,16 @@ export default class StudentJournalsView extends React.PureComponent {
         key: 'actions',
         width: 120,
         render: (text, record) => (
-          <div style={{ width: 120 }}>
+          <div
+            className="d-flex justify-content-between"
+            //style={{ width: 120 }}
+          >
             <Button
-              color="primary"
-              size="sm"
-              className="edit-journal"
+              className="btn-outline-success"
+              style={{ width: '72px', borderRadius: '15px' }}
+              // color="primary"
+              //size="sm"
+              //className="edit-journal"
               onClick={() =>
                 this.handleEditJournal(record.id, record.subject, record.activity, record.activityDate, record.content)
               }
@@ -131,9 +136,10 @@ export default class StudentJournalsView extends React.PureComponent {
               Edit
             </Button>{' '}
             <Button
-              color="primary"
-              size="sm"
-              className="delete-journal"
+              className="btn-outline-danger"
+              //color="primary"
+              //size="sm"
+              //className="delete-journal"
               onClick={() => this.handleDeleteJournal(record.id)}
             >
               Delete
@@ -144,7 +150,7 @@ export default class StudentJournalsView extends React.PureComponent {
     ];
 
     return (
-      <div>
+      <div style={{ marginBottom: '6rem' }}>
         <h3>Journals</h3>
         <StudentJournalForm
           studentId={studentId}
