@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { Button as RSButton } from 'reactstrap';
 
 const Button = ({ children, ...props }) => {
-  return <RSButton {...props}>{children}</RSButton>;
+  return (
+    <RSButton className="btn btn-outline-info" {...props}>
+      {children}
+    </RSButton>
+  );
 };
 
 Button.propTypes = {

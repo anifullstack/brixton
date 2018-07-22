@@ -23,27 +23,37 @@ const RegisterForm = ({ values, handleSubmit, submitting, error, t }) => {
         name="username"
         component={RenderField}
         type="text"
-        label={t('reg.form.field.name')}
+        // label={t('reg.form.field.name')}
+        placeholder={t('reg.form.field.name')}
         value={values.username}
       />
-      <Field name="email" component={RenderField} type="text" label={t('reg.form.field.email')} value={values.email} />
+      <Field
+        name="email"
+        component={RenderField}
+        type="text"
+        //label={t('reg.form.field.email')}
+        placeholder={t('reg.form.field.email')}
+        value={values.email}
+      />
       <Field
         name="password"
         component={RenderField}
         type="password"
-        label={t('reg.form.field.pass')}
+        //label={t('reg.form.field.pass')}
+        placeholder={t('reg.form.field.pass')}
         value={values.password}
       />
       <Field
         name="passwordConfirmation"
         component={RenderField}
         type="password"
-        label={t('reg.form.field.passConf')}
+        //      label={t('reg.form.field.passConf')}
+        placeholder={t('reg.form.field.passConf')}
         value={values.passwordConfirmation}
       />
       <div className="text-center">
         {error && <Alert color="error">{error}</Alert>}
-        <Button color="primary" type="submit" disabled={submitting}>
+        <Button color="primary" type="submit" disabled={submitting} style={{ height: '44px' }} block>
           {t('reg.form.btnSubmit')}
         </Button>
       </div>

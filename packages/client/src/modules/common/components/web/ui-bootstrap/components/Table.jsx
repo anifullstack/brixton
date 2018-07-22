@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table as RSTable } from 'reactstrap';
+import { Card } from '../components';
 
 const renderHead = columns => {
   return columns.map(({ title, dataIndex, renderHeader, key }) => {
@@ -26,12 +27,14 @@ const renderData = (columns, entry) => {
 
 const Table = ({ dataSource, columns, ...props }) => {
   return (
-    <RSTable {...props}>
-      <thead>
-        <tr>{renderHead(columns)}</tr>
-      </thead>
-      <tbody>{renderBody(columns, dataSource)}</tbody>
-    </RSTable>
+    <Card>
+      <RSTable {...props}>
+        <thead>
+          <tr>{renderHead(columns)}</tr>
+        </thead>
+        <tbody>{renderBody(columns, dataSource)}</tbody>
+      </RSTable>
+    </Card>
   );
 };
 

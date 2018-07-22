@@ -79,9 +79,9 @@ class PostList extends React.PureComponent {
           width: 50,
           render: (text, record) => (
             <Button
-              color="primary"
-              size="sm"
-              className="delete-button"
+              //color="primary"
+              //size="sm"
+              //className="delete-button"
               onClick={() => this.handleDeletePost(record.id)}
             >
               {t('post.btn.del')}

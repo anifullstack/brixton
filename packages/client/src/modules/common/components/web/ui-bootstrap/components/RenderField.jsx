@@ -12,7 +12,7 @@ const RenderField = ({ input, label, type, meta: { touched, error }, children, p
     <FormGroup>
       {label && <Label>{label}</Label>}
       <div>
-        <Input {...input} placeholder={label || placeholder} type={type} invalid={!valid}>
+        <Input style={{ height: '44px' }} {...input} placeholder={label || placeholder} type={type} invalid={!valid}>
           {children}
         </Input>
         {touched && (error && <FormFeedback>{error}</FormFeedback>)}

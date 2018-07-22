@@ -1,14 +1,18 @@
 @import 'bootstrap';
+@import 'formContainer';
+@import 'login&Register';
+@import 'Navbar';
 
 #root {
+  background-color: #f7f7f9;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.active {
-  color: #000;
-}
+// .active {
+//   color: #000;
+// }
 
 .lang-section {
   button {

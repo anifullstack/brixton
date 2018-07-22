@@ -6,7 +6,7 @@ import modules from '../../../../../../modules';
 import settings from '../../../../../../../../../settings';
 
 const NavBar = () => (
-  <Navbar color="faded" light>
+  <Navbar className="navbar navbar-dark " style={{ height: '4.5rem' }}>
     <Container>
       <Nav>
         <NavLink to="/" className="navbar-brand">
@@ -15,13 +15,11 @@ const NavBar = () => (
         {modules.navItems}
       </Nav>
 
-      <Nav className="justify-content-end">
+      <Nav className="form-inline my-2 my-lg-0">
         {modules.navItemsRight}
         {__DEV__ && (
           <NavItem>
-            <a href="/graphiql" className="nav-link">
-              GraphiQL
-            </a>
+            <a href="/graphiql">GraphiQL</a>
           </NavItem>
         )}
       </Nav>

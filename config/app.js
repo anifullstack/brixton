@@ -1,5 +1,5 @@
 export default {
-  name: 'Apollo Starter Kit',
+  name: 'Montessori',
   logging: {
     debugSQL: false,
     apolloLogging: ['test', 'production'].indexOf(process.env.NODE_ENV) < 0
