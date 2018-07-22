@@ -1,5 +1,5 @@
 // Validations
-
+import moment from 'moment';
 // Non empty validation
 export const required = value => (value ? undefined : 'Required');
 
@@ -32,6 +32,10 @@ export const alphaNumeric = value =>
 // Phone number validation
 export const phoneNumber = value =>
   value && !/^(0|[1-9][0-9]{9})$/i.test(value) ? 'Invalid phone number, must be 10 digits' : undefined;
+
+// Date Validation
+export const dateValidation = value =>
+  value && !moment(value, 'MM/DD/YYYY', true).isValid() ? 'Invalid date. Must be in MM/DD/YYYY format' : undefined;
 
 export const validateForm = (formValues, formSchema) => {
   let errors = {};

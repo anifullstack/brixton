@@ -1,0 +1,7 @@
+fragment StudentInfo on Student {
+  id
+  firstName
+  lastName
+  birthDate
+  content
+}

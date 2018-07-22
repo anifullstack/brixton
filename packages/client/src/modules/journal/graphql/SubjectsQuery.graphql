@@ -1,0 +1,7 @@
+#import "./Subject.graphql"
+
+query subjects {
+  subjects {
+    ...SubjectInfo
+  }
+}
