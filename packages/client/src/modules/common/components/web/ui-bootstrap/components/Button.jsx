@@ -4,7 +4,7 @@ import { Button as RSButton } from 'reactstrap';
 
 const Button = ({ children, ...props }) => {
   return (
-    <RSButton className="btn btn-outline-info" {...props}>
+    <RSButton className="btn btn-outline-info" style={{ borderRadius: 15 }} {...props}>
       {children}
     </RSButton>
   );

@@ -1,7 +1,8 @@
 @import 'bootstrap';
 @import 'formContainer';
-@import 'login&Register';
+//@import 'login&Register';
 @import 'Navbar';
+@import 'bigBtn';
 
 #root {
   background-color: #f7f7f9;
@@ -9,7 +10,9 @@
   display: flex;
   flex-direction: column;
 }
-
+a{
+  color:black;
+}
 // .active {
 //   color: #000;
 // }
