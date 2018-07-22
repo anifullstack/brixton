@@ -19,7 +19,9 @@ const NavBar = () => (
         {modules.navItemsRight}
         {__DEV__ && (
           <NavItem>
-            <a href="/graphiql">GraphiQL</a>
+            <a style={{ color: '#fff', textDecoration: 'none', marginLeft: '10px' }} href="/graphiql">
+              GraphiQL
+            </a>
           </NavItem>
         )}
       </Nav>

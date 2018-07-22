@@ -6,7 +6,11 @@ import { Card } from '../components';
 const renderHead = columns => {
   return columns.map(({ title, dataIndex, renderHeader, key }) => {
     return (
-      <th key={key} className={`w-${columns.length === 2 ? 100 : 100 / columns.length}`}>
+      <th
+        key={key}
+        className={`w-${columns.length === 2 ? 100 : 100 / columns.length}`}
+        style={{ height: '60px', letterSpacing: '0.025rem' }}
+      >
         {renderHeader ? renderHeader(title, dataIndex) : title}
       </th>
     );
@@ -27,8 +31,8 @@ const renderData = (columns, entry) => {
 
 const Table = ({ dataSource, columns, ...props }) => {
   return (
-    <Card>
-      <RSTable {...props}>
+    <Card style={{ borderRadius: '15px', padding: '0px 15px' }}>
+      <RSTable className="table table-striped table-hover" style={{ borderRadius: '15px' }} {...props}>
         <thead>
           <tr>{renderHead(columns)}</tr>
         </thead>
