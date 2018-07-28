@@ -1,12 +1,13 @@
 export const itemContainer = {
   flex: 1,
   flexDirection: 'row',
-  alignItems: 'center'
+  alignItems: 'center',
 };
 
 export const itemTitle = {
   flex: 5,
-  flexDirection: 'column'
+  flexDirection: 'column',
+  
 };
 
 export const itemAction = {

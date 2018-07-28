@@ -18,14 +18,18 @@ HeaderTitle.propTypes = {
 const styles = StyleSheet.create({
   menuTitle: {
     padding: 16,
-    fontWeight: 'bold'
+    //paddingLeft: 30,
+    fontWeight: 'bold',
+   
   },
   subTitle: {
     fontSize: Platform.OS === 'ios' ? 17 : 20,
     fontWeight: Platform.OS === 'ios' ? '700' : '500',
-    color: 'rgba(0, 0, 0, .9)',
+    //color: 'rgba(0, 0, 0, .9)',
+    color:'#fff',
     textAlign: Platform.OS === 'ios' ? 'center' : 'left',
-    marginHorizontal: 16
+    marginHorizontal: 16,
+    //Subtitle justify-content
   }
 });
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, Linking, Platform } from 'react-native';
+import { StyleSheet, View, Text, Linking, Platform ,} from 'react-native';
 import { WebBrowser } from 'expo';
 import { placeholderColor } from '../../common/components/native/styles';
+
+//import {ImageBackground} from 'react-native';
 
 import settings from '../../../../../../settings';
 import translate from '../../../i18n';
@@ -11,6 +13,8 @@ import LoginForm from './LoginForm';
 
 import { setItem } from '../../common/clientStorage';
 import CURRENT_USER_QUERY from '../graphql/CurrentUserQuery.graphql';
+
+//import CoolBlue from '../bgImg/CoolBlues.jpg';
 
 class LoginView extends React.PureComponent {
   componentDidMount() {
@@ -66,15 +70,19 @@ class LoginView extends React.PureComponent {
     </View>
   );
 
+/// <ImageBackground source={CoolBlue} style={styles.bg}>
+ // </ImageBackground> 
   render() {
     const { login, navigation } = this.props;
     return (
       <View style={styles.container}>
-        <View style={styles.examplesContainer}>{this.renderAvailableLogins()}</View>
+        <View style={styles.examplesContainer}>{this.renderAvailableLogins()}</View>             
         <View style={styles.loginContainer}>
           <LoginForm onSubmit={this.onSubmit(login)} navigation={navigation} />
         </View>
-      </View>
+       
+     </View>
+    
     );
   }
 }
@@ -84,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    padding: 10
+    padding: 10,
   },
   examplesArea: {
     borderWidth: 0.5,
@@ -113,7 +121,11 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     flex: 3
-  }
+  },
+  // bg:{
+  //   flex:1,
+  //   width:'100%',
+  // }
 });
 
 LoginView.propTypes = {

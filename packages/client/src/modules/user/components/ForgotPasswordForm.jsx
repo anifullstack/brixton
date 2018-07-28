@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { View, StyleSheet, Text, Keyboard } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Field from '../../../utils/FieldAdapter';
-import { RenderField, Button, primary } from '../../common/components/native';
+import { RenderField, Button, info } from '../../common/components/native';
 import { placeholderColor, submit } from '../../common/components/native/styles';
 import { required, email, validateForm } from '../../../../../common/validation';
 import translate from '../../../i18n';
@@ -44,7 +44,7 @@ const ForgotPasswordForm = ({ handleSubmit, values, sent, t }) => {
           />
         </View>
         <View style={styles.submit}>
-          <Button type={primary} onPress={handleSubmit}>
+          <Button type={info} onPress={handleSubmit}>
             {t('forgotPass.form.btnSubmit')}
           </Button>
         </View>

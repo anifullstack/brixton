@@ -61,7 +61,8 @@ const StudentNavigator = StackNavigator({
 });
 
 export default new Feature({
-  tabItem: {
+  //tabItem
+   drawerItem: {
     Student: {
       screen: StudentNavigator,
       navigationOptions: {

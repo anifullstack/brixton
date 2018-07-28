@@ -23,7 +23,7 @@ const withI18N = (Component, props) => {
 const PostListHeaderRight = ({ navigation, t }) => {
   return (
     <View style={styles.addButtonContainer}>
-      <Button style={styles.addButton} size={'small'} type={primary} onPress={() => navigation.navigate('PostAdd')}>
+      <Button style={styles.addButton} size={'small'} type={'info'} onPress={() => navigation.navigate('PostAdd')}>
         {t('list.btn.add')}
       </Button>
     </View>
@@ -110,7 +110,8 @@ const PostNavigator = createStackNavigator({
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+
   },
   subTitle: {
     fontSize: Platform.OS === 'ios' ? 17 : 20,
@@ -136,7 +137,7 @@ export default new Feature({
     Post: {
       screen: PostNavigator,
       navigationOptions: {
-        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' })
+        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' }),
       }
     }
   },

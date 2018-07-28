@@ -21,9 +21,9 @@ export default new Feature({
           navigationOptions: ({ navigation }) => ({
             headerTitle: <HeaderTitleWithI18n i18nKey="title" style="subTitle" />,
             headerLeft: (
-              <IconButton iconName="menu" iconSize={32} iconColor="#0275d8" onPress={() => navigation.openDrawer()} />
+              <IconButton iconName="menu" iconSize={32} iconColor="#fff" onPress={() => navigation.openDrawer()} />
             ),
-            headerStyle: { backgroundColor: '#fff' }
+           headerStyle: { backgroundColor: '#64B5F6',marginTop:-15, }
           })
         }
       }),

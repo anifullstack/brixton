@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { withFormik } from 'formik';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Field from '../../../utils/FieldAdapter';
-import { RenderField, Button, primary, FormView } from '../../common/components/native';
+import { RenderField, Button, info, FormView } from '../../common/components/native';
 import { placeholderColor, submit } from '../../common/components/native/styles';
 import { match, email, minLength, required, validateForm } from '../../../../../common/validation';
 import translate from '../../../i18n';
@@ -58,7 +58,7 @@ const RegisterForm = ({ values, handleSubmit, t }) => {
           placeholderTextColor={placeholderColor}
         />
         <View style={styles.submit}>
-          <Button type={primary} onPress={handleSubmit}>
+          <Button type={info} onPress={handleSubmit}>
             {t('reg.form.btnSubmit')}
           </Button>
         </View>

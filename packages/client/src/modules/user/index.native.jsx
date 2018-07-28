@@ -23,7 +23,8 @@ import Feature from '../connector';
 class LoginScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: <HeaderTitleWithI18n i18nKey="navLink.sign" style="subTitle" />,
-    headerLeft: <IconButton iconName="menu" iconSize={32} iconColor="#0275d8" onPress={() => navigation.openDrawer()} />
+    headerLeft: <IconButton iconName="menu" iconSize={32} iconColor="#fff" onPress={() => navigation.openDrawer()} />,
+    headerStyle: { backgroundColor: '#64B5F6',marginTop:-15, }
   });
 
   render() {
@@ -37,7 +38,8 @@ LoginScreen.propTypes = {
 
 class ForgotPasswordScreen extends React.Component {
   static navigationOptions = () => ({
-    headerTitle: <HeaderTitleWithI18n i18nKey="navLink.forgotPassword" style="subTitle" />
+    headerTitle: <HeaderTitleWithI18n i18nKey="navLink.forgotPassword" style="subTitle" />,
+    headerStyle: { backgroundColor: '#64B5F6',marginTop:-15, }
   });
   render() {
     return <ForgotPassword navigation={this.props.navigation} />;
@@ -50,7 +52,8 @@ ForgotPasswordScreen.propTypes = {
 
 class RegisterScreen extends React.Component {
   static navigationOptions = () => ({
-    headerTitle: <HeaderTitleWithI18n i18nKey="navLink.register" style="subTitle" />
+    headerTitle: <HeaderTitleWithI18n i18nKey="navLink.register" style="subTitle" />,
+    headerStyle: { backgroundColor: '#64B5F6',marginTop:-15, }
   });
   render() {
     return <Register navigation={this.props.navigation} />;
@@ -72,7 +75,7 @@ const AuthScreen = createStackNavigator(
       backgroundColor: '#fff'
     },
     navigationOptions: {
-      headerStyle: { backgroundColor: '#fff' }
+      headerStyle: { backgroundColor: '#fff',color:'#fff' }
     }
   }
 );
@@ -150,7 +153,7 @@ export default new Feature(access, {
           navigationOptions: ({ navigation }) => ({
             headerTitle: <HeaderTitleWithI18n i18nKey="navLink.profile" style="subTitle" />,
             headerLeft: (
-              <IconButton iconName="menu" iconSize={32} iconColor="#0275d8" onPress={() => navigation.openDrawer()} />
+              <IconButton iconName="menu" iconSize={32} iconColor="fff" onPress={() => navigation.openDrawer()} />
             )
           })
         },
