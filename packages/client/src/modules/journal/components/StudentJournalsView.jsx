@@ -11,11 +11,12 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import translate from '../../../i18n';
 import { SwipeAction } from '../../common/components/native';
 
 import StudentJournalForm from './StudentJournalForm';
 
-export default class StudentJournalsView extends React.PureComponent {
+class StudentJournalsView extends React.PureComponent {
   static propTypes = {
     studentId: PropTypes.number.isRequired,
     journals: PropTypes.array.isRequired,
@@ -27,7 +28,7 @@ export default class StudentJournalsView extends React.PureComponent {
     onJournalSelect: PropTypes.func.isRequired
   };
 
-  keyExtractor = item => item.id;
+  keyExtractor = item => `${item.id}`;
 
   renderItemIOS = ({ item: { id, subject, activity, activityDate, content } }) => {
     const { journal, deleteJournal, onJournalSelect } = this.props;
@@ -118,8 +119,8 @@ export default class StudentJournalsView extends React.PureComponent {
     const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS;
 
     return (
-      <View>
-        <Text style={styles.firstName}>Journal</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Journal</Text>
         <StudentJournalForm
           studentId={studentId}
           onSubmit={this.onSubmit(journal, studentId, addJournal, editJournal, onJournalSelect)}
@@ -135,7 +136,13 @@ export default class StudentJournalsView extends React.PureComponent {
   }
 }
 
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center'
+  }, 
   title: {
     fontSize: 20,
     fontWeight: '600',
@@ -144,7 +151,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingTop: 10
-  },
+  }, 
   text: {
     fontSize: 18
   },
@@ -168,3 +175,4 @@ const styles = StyleSheet.create({
     paddingLeft: 7
   }
 });
+export default translate('student')(StudentJournalsView);

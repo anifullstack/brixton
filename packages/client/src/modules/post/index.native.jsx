@@ -110,8 +110,7 @@ const PostNavigator = createStackNavigator({
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#fff',
-
+    backgroundColor: '#fff'
   },
   subTitle: {
     fontSize: Platform.OS === 'ios' ? 17 : 20,
@@ -137,7 +136,7 @@ export default new Feature({
     Post: {
       screen: PostNavigator,
       navigationOptions: {
-        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' }),
+        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' })
       }
     }
   },

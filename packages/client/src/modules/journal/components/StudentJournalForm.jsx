@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withFormik } from 'formik';
+import translate from '../../../i18n';
 import Field from '../../../utils/FieldAdapter';
-import { FormView, RenderField, FormButton } from '../../common/components/native';
+import { FormView, RenderField, Button } from '../../common/components/native';
+import { placeholderColor } from '../../common/components/native/styles';
 import { required, validateForm } from '../../../../../common/validation';
 
 const journalFormSchema = {
@@ -12,24 +14,28 @@ const journalFormSchema = {
 const validate = values => validateForm(values, journalFormSchema);
 
 const StudentJournalForm = ({ values, handleSubmit, journal }) => {
-  let operation = 'Add';
-  if (journal.id !== null) {
-    operation = 'Edit';
-  }
+  // let operation = 'Add';
+  // if (journal.id !== null) {
+  //   operation = 'Edit';
+  // }
+  const operation = t(`comment.label.${comment.id ? 'edit' : 'add'}`);
+
 
   return (
-    <FormView>
+    <FormView style={{ paddingHorizontal: 15 }}>
       <Field
         name="activityDate"
         component={RenderField}
         type="text"
         value={values.activityDate}
         placeholder="activityDate"
+        placeholderTextColor={placeholderColor}
+
       />
       <Field name="subject" component={RenderField} type="text" value={values.subject} placeholder="subject" />
       <Field name="activity" component={RenderField} type="text" value={values.activity} placeholder="activity" />
       <Field name="content" component={RenderField} type="text" value={values.content} placeholder="Journal" />
-      <FormButton onPress={handleSubmit}>{operation}</FormButton>
+      <Button onPress={handleSubmit}>{operation}</Button>
     </FormView>
   );
 };
@@ -60,4 +66,4 @@ const StudentJournalFormWithFormik = withFormik({
   enableReinitialize: true
 });
 
-export default StudentJournalFormWithFormik(StudentJournalForm);
+export default translate('student')(StudentJournalFormWithFormik);

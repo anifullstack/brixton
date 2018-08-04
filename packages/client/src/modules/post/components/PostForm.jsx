@@ -35,9 +35,7 @@ const PostForm = ({ values, handleSubmit, t }) => {
         value={values.content}
         placeholderTextColor={placeholderColor}
       />
-      <Button  onPress={handleSubmit}>      
-        {t('post.btn.submit')}
-      </Button>
+      <Button onPress={handleSubmit}>{t('post.btn.submit')}</Button>
     </FormView>
   );
 };

@@ -41,7 +41,9 @@ const StudentEditView = ({ loading, student, navigation, subscribeToMore, addStu
             journals={studentObj.journals}
             subscribeToMore={subscribeToMore}
           />
+         
         )}
+       
       </ScrollView>
     );
   }

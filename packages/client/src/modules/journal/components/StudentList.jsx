@@ -49,10 +49,10 @@ export default class StudentList extends React.PureComponent {
           {firstName} {lastName}
         </Text>
         <TouchableOpacity style={styles.iconWrapper} onPress={() => navigation.navigate('StudentEdit', { id })}>
-          <FontAwesome name="edit" size={20} style={{ color: '#3B5998' }} />
+          <FontAwesome name="edit" size={20} style={{ color: '#7cb342' }} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteStudent(id)}>
-          <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
+          <FontAwesome name="trash" size={20} style={{ color: '#ff9100' }} />
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   text: {
-    fontSize: 18
+    fontSize: 18,
+    width:"60%"
   },
   iconWrapper: {
     backgroundColor: 'transparent',
@@ -113,8 +114,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderBottomColor: '#000',
+    borderBottomColor: '#64B5F6',
     borderBottomWidth: 0.3,
+    borderTopWidth: 0.3,
+    borderTopColor: '#64B5F6',    
     height: 50,
     paddingLeft: 7
   }

@@ -1,23 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import { Ionicons } from '@expo/vector-icons';
-
-import { createTabBarIconWrapper } from '../common/components/native';
-
+import {Text, Platform,StyleSheet,Button } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+//import { Ionicons } from '@expo/vector-icons';
+//import { createTabBarIconWrapper } from '../common/components/native';
+import translate from '../../i18n';
+import {  HeaderTitle, IconButton, primary } from '../common/components/native';
 import Student from './containers/Student';
 import StudentEdit from './containers/StudentEdit';
 import StudentJournal from './containers/StudentEdit';
 
 import resolvers from './resolvers';
+import resources from './locales';
 
 import Feature from '../connector';
 
+const withI18N = (Component, props) => {
+  const WithI18N = translate('student')(Component);
+  return <WithI18N {...props} />;
+};
+
+const StudentListHeaderRight = ({ navigation, t }) => {
+  return (
+    <View style={styles.addButtonContainer}>
+      <Button style={styles.addButton} size={'small'} type={'danger'} onPress={() => navigation.navigate('StudentAdd')}>
+        {t('list.btn.add')}
+      </Button>
+    </View>
+  );
+};
+StudentListHeaderRight.propTypes = {
+  navigation: PropTypes.object,
+  t: PropTypes.func
+};
+
 class StudentListScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Student list',
-    headerRight: <Button title="Add" onPress={() => navigation.navigate('StudentEdit', { id: 0 })} />
+    // title: 'Student list',
+    headerTitle: withI18N(HeaderTitle, { style: 'subTitle', i18nKey: 'list.subTitle' }),
+    headerRight: <Button title="Add" onPress={() => navigation.navigate('StudentEdit', { id: 0 })} />,
+    headerLeft: (
+      <IconButton iconName="menu" iconSize={32} iconColor="#fff" onPress={() => navigation.openDrawer()} />
+    ),
+    headerStyle: { backgroundColor: '#64B5F6', marginTop: -15 }
   });
   render() {
     return <Student navigation={this.props.navigation} />;
@@ -28,9 +53,32 @@ StudentListScreen.propTypes = {
   navigation: PropTypes.object
 };
 
+
+const StudentEditTitle = ({ t }) => (
+  <Text style={styles.subTitle}>
+    {t(`student.label.edit`)} {t('student.label.student')}
+  </Text>
+);
+StudentEditTitle.propTypes = {
+  navigation: PropTypes.object,
+  t: PropTypes.func
+};
+
+const StudentJournalTitle = ({ t }) => (
+  <Text style={styles.subTitle}>
+    {t('student.label.create')} {t('student.label.student')}
+  </Text>
+);
+StudentJournalTitle.propTypes = {
+  navigation: PropTypes.object,
+  t: PropTypes.func
+};
+
 class StudentEditScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.id === 0 ? 'Create' : 'Edit'} student`
+   // title: `${navigation.state.params.id === 0 ? 'Create' : 'Edit'} student`
+   headerTitle: withI18N(StudentEditTitle, { navigation }),
+   headerStyle: { backgroundColor: '#64B5F6', marginTop: -15 }
   });
   render() {
     return <StudentEdit navigation={this.props.navigation} />;
@@ -43,7 +91,9 @@ StudentEditScreen.propTypes = {
 
 class StudentJournalScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.id === 0 ? 'Create' : 'Edit'} Journal`
+   // title: `${navigation.state.params.id === 0 ? 'Create' : 'Edit'} Journal`
+   headerTitle: withI18N(StudentJournalTitle, { navigation }),
+   headerStyle: { backgroundColor: '#64B5F6', marginTop: -15 }
   });
   render() {
     return <StudentJournal navigation={this.props.navigation} />;
@@ -54,24 +104,52 @@ StudentJournalScreen.propTypes = {
   navigation: PropTypes.object
 };
 
-const StudentNavigator = StackNavigator({
+const StudentNavigator = createStackNavigator({
   StudentList: { screen: StudentListScreen },
   StudentEdit: { screen: StudentEditScreen },
   StudentJournal: { screen: StudentJournalScreen }
 });
 
+
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#fff'
+  },
+  subTitle: {
+    fontSize: Platform.OS === 'ios' ? 17 : 20,
+    fontWeight: Platform.OS === 'ios' ? '700' : '500',
+    //color: 'rgba(0, 0, 0, .9)',
+    color:'#fff',
+    textAlign: Platform.OS === 'ios' ? 'center' : 'left',
+    marginHorizontal: 16
+  },
+  addButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+
+  },
+  addButton: {
+    height: 22,
+    width: 30
+  }
+});
 export default new Feature({
   //tabItem
-   drawerItem: {
+  drawerItem: {
     Student: {
       screen: StudentNavigator,
       navigationOptions: {
-        tabBarIcon: createTabBarIconWrapper(Ionicons, {
-          name: 'ios-book-outline',
-          size: 30
-        })
+        // tabBarIcon: createTabBarIconWrapper(Ionicons, {
+        //   name: 'ios-book-outline',
+        //   size: 30
+        // })
+        drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' })
       }
     }
   },
-  resolver: resolvers
+  resolver: resolvers,
+  localization: { ns: 'student', resources }
 });

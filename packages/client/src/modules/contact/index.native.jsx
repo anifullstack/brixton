@@ -21,8 +21,8 @@ export default new Feature({
             headerLeft: (
               <IconButton iconName="menu" iconSize={32} iconColor="#fff" onPress={() => navigation.openDrawer()} />
             ),
-           // headerStyle: { backgroundColor: '#fff' }
-           headerStyle: { backgroundColor: '#64B5F6',marginTop:-15, }
+            // headerStyle: { backgroundColor: '#fff' }
+            headerStyle: { backgroundColor: '#64B5F6', marginTop: -15 }
           })
         }
       }),

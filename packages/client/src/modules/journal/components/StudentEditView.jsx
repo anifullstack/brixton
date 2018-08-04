@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-
+//import { Loading } from '../../common/components/native';
+import translate from '../../../i18n';
 import StudentForm from './StudentForm';
 import StudentJournals from '../containers/StudentJournals';
 
@@ -58,4 +59,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default StudentEditView;
+export default translate('student')(StudentEditView);

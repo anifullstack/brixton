@@ -14,7 +14,7 @@ const Button = ({ textStyle, children, onClick, onPress, type, size, ...props })
   };
 
   return (
-    <NBButton info {...btnProps} >
+    <NBButton info {...btnProps}>
       <Text style={[styles.btnText, textStyle]} numberOfLines={1}>
         {children}
       </Text>

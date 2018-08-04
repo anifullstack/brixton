@@ -16,7 +16,7 @@ import Feature from './connector';
 export default new Feature(
   defaultRouter,
   counter,
-  //post,
+  post,
   journal,
   //upload,
   user,
