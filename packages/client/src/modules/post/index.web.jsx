@@ -3,9 +3,11 @@ import { Route, NavLink } from 'react-router-dom';
 import translate from '../../i18n';
 
 import { MenuItem } from '../../modules/common/components/web';
+
 import Post from './containers/Post';
 import PostEdit from './containers/PostEdit';
 import PostAdd from './containers/PostAdd';
+
 import resources from './locales';
 import resolvers from './resolvers';
 import Feature from '../connector';

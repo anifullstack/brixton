@@ -9,6 +9,12 @@ import STUDENTS_QUERY from '../graphql/StudentsQuery.graphql';
 import STUDENTS_SUBSCRIPTION from '../graphql/StudentsSubscription.graphql';
 import DELETE_STUDENT from '../graphql/DeleteStudent.graphql';
 
+import paginationConfig from '../../../../../../config/pagination';
+import { PLATFORM } from '../../../../../common/utils';
+
+const limit =
+  PLATFORM === 'web' || PLATFORM === 'server' ? paginationConfig.web.itemsNumber : paginationConfig.mobile.itemsNumber;
+
 export function AddStudent(prev, node) {
   // ignore if duplicate
   if (prev.students.edges.some(student => node.id === student.cursor)) {
@@ -67,20 +73,17 @@ class Student extends React.Component {
     this.subscription = null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.loading) {
+  componentDidUpdate(prevProps) {
+    if (!this.props.loading) {
       const endCursor = this.props.students ? this.props.students.pageInfo.endCursor : 0;
-      const nextEndCursor = nextProps.students.pageInfo.endCursor;
-
+      const prevEndCursor = prevProps.students ? prevProps.students.pageInfo.endCursor : null;
       // Check if props have changed and, if necessary, stop the subscription
-      if (this.subscription && endCursor !== nextEndCursor) {
+      if (this.subscription && prevEndCursor !== endCursor) {
         this.subscription();
         this.subscription = null;
       }
-
-      // Subscribe or re-subscribe
       if (!this.subscription) {
-        this.subscribeToStudentList(nextEndCursor);
+        this.subscribeToStudentList(endCursor);
       }
     }
   }
@@ -89,6 +92,7 @@ class Student extends React.Component {
     if (this.subscription) {
       // unsubscribe
       this.subscription();
+      this.subscription = null;
     }
   }
 
@@ -130,27 +134,29 @@ export default compose(
   graphql(STUDENTS_QUERY, {
     options: () => {
       return {
-        variables: { limit: 10, after: 0 }
+        variables: { limit: limit, after: 0 },
+        fetchPolicy: 'cache-and-network'
       };
     },
     props: ({ data }) => {
       const { loading, error, students, fetchMore, subscribeToMore } = data;
-      const loadMoreRows = () => {
+      const loadData = (after, dataDelivery) => {
         return fetchMore({
           variables: {
-            after: students.pageInfo.endCursor
+            after: after
           },
           updateQuery: (previousResult, { fetchMoreResult }) => {
             const totalCount = fetchMoreResult.students.totalCount;
             const newEdges = fetchMoreResult.students.edges;
             const pageInfo = fetchMoreResult.students.pageInfo;
+            const displayedEdges = dataDelivery === 'add' ? [...previousResult.students.edges, ...newEdges] : newEdges;
 
             return {
               // By returning `cursor` here, we update the `fetchMore` function
               // to the new cursor.
               students: {
                 totalCount,
-                edges: [...previousResult.students.edges, ...newEdges],
+                edges: displayedEdges,
                 pageInfo,
                 __typename: 'Students'
               }
@@ -159,7 +165,7 @@ export default compose(
         });
       };
       if (error) throw new Error(error);
-      return { loading, students, subscribeToMore, loadMoreRows };
+      return { loading, students, subscribeToMore, loadData };
     }
   }),
   graphql(DELETE_STUDENT, {

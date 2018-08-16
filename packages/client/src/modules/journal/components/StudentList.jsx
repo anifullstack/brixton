@@ -2,103 +2,117 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, FlatList, Text, View, Platform, TouchableOpacity } from 'react-native';
-import { SwipeAction } from '../../common/components/native';
+import { StyleSheet, Text, Platform, TouchableOpacity, View, FlatList } from 'react-native';
+import translate from '../../../i18n';
+import { SwipeAction, Loading } from '../../common/components/native';
 
-export default class StudentList extends React.PureComponent {
+class StudentList extends React.PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     students: PropTypes.object,
     navigation: PropTypes.object,
     deleteStudent: PropTypes.func.isRequired,
-    loadMoreRows: PropTypes.func.isRequired
+   loadData: PropTypes.func.isRequired,
+    t: PropTypes.func
   };
 
-  onEndReachedCalledDuringMomentum = false;
-
-  keyExtractor = item => item.node.id;
+  keyExtractor = item => `${item.node.id}`;
 
   renderItemIOS = ({
     item: {
-      node: { id, firstName, lastName }
+      node: { id, firstName,lastName }
     }
   }) => {
-    const { deleteStudent, navigation } = this.props;
+    const { deleteStudent, navigation, t } = this.props;
     return (
       <SwipeAction
         onPress={() => navigation.navigate('StudentEdit', { id })}
         right={{
-          text: 'Delete',
+          text: t('list.btn.del'),
           onPress: () => deleteStudent(id)
         }}
       >
-        {firstName} {lastName}
+        {firstName}
+        {lastName}
       </SwipeAction>
     );
   };
 
   renderItemAndroid = ({
     item: {
-      node: { id, firstName, lastName }
+      node: { id, firstName,lastName }
     }
   }) => {
     const { deleteStudent, navigation } = this.props;
     return (
+      // <TouchableOpacity style={styles.studentWrapper} onPress={() => navigation.navigate('StudentEdit', { id })}>
+      //   <Text style={styles.text}>{firstName}  {lastName}</Text>
+      //   <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteStudent(id)}>
+      //     <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
+      //   </TouchableOpacity>
+      // </TouchableOpacity>
       <TouchableOpacity style={styles.studentWrapper} onPress={() => navigation.navigate('StudentJournal', { id })}>
-        <Text style={styles.text}>
-          {firstName} {lastName}
-        </Text>
-        <TouchableOpacity style={styles.iconWrapper} onPress={() => navigation.navigate('StudentEdit', { id })}>
-          <FontAwesome name="edit" size={20} style={{ color: '#7cb342' }} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteStudent(id)}>
-          <FontAwesome name="trash" size={20} style={{ color: '#ff9100' }} />
-        </TouchableOpacity>
+        <Text style={styles.text}>{firstName} {lastName}</Text>
+          <TouchableOpacity style={styles.iconWrapper} onPress={() => navigation.navigate('StudentEdit', { id })}>
+            <FontAwesome name="edit" size={20} style={{ color: '#3B5998' }} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteStudent(id)}>
+            <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
+          </TouchableOpacity>
       </TouchableOpacity>
-    );
+      );
+    };
+
+  handleScrollEvent = () => {
+    const {
+      students: {
+        pageInfo: { endCursor }
+      },
+      loadData
+    } = this.props;
+    if (this.allowDataLoad) {
+      if (this.props.students.pageInfo.hasNextPage) {
+        this.allowDataLoad = false;
+        return loadData(endCursor + 1, 'add');
+      }
+    }
   };
 
   render() {
-    const { loading, students, loadMoreRows } = this.props;
+    const { loading, students, t } = this.props;
     const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS;
     if (loading) {
+      return <Loading text={t('student.loadMsg')} />;
+    } else {
+      this.allowDataLoad = true;
       return (
         <View style={styles.container}>
-          <Text>Loading...</Text>
+          <FlatList
+            data={students.edges}
+            ref={ref => (this.listRef = ref)}
+            style={styles.list}
+            keyExtractor={this.keyExtractor}
+            renderItem={renderItem}
+            onEndReachedThreshold={0.5}
+            onEndReached={this.handleScrollEvent}
+          />
         </View>
-      );
-    } else {
-      return (
-        <FlatList
-          data={students.edges}
-          style={{ marginTop: 5 }}
-          keyExtractor={this.keyExtractor}
-          renderItem={renderItem}
-          onEndReachedThreshold={0.5}
-          onMomentumScrollBegin={() => {
-            this.onEndReachedCalledDuringMomentum = false;
-          }}
-          onEndReached={() => {
-            if (!this.onEndReachedCalledDuringMomentum) {
-              if (students.pageInfo.hasNextPage) {
-                this.onEndReachedCalledDuringMomentum = true;
-                return loadMoreRows();
-              }
-            }
-          }}
-        />
       );
     }
   }
 }
 
+export default translate('student')(StudentList);
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center'
   },
   text: {
     fontSize: 18,
-    width:"60%"
+    width: '60%'
   },
   iconWrapper: {
     backgroundColor: 'transparent',
@@ -114,11 +128,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderBottomColor: '#64B5F6',
+    borderBottomColor: '#000',
     borderBottomWidth: 0.3,
-    borderTopWidth: 0.3,
-    borderTopColor: '#64B5F6',    
+    // borderTopWidth: 0.3,
+    // borderTopColor: '#64B5F6',
     height: 50,
     paddingLeft: 7
+  },
+  list: {
+    marginTop: 5
   }
 });

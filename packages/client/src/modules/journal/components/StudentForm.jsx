@@ -1,47 +1,70 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withFormik } from 'formik';
+
+//import {Icon}  from 'native-base';
 import translate from '../../../i18n';
 import Field from '../../../utils/FieldAdapter';
-import {Button, FormView, RenderField } from '../../common/components/native';
-import { placeholderColor} from '../../common/components/native/styles';
+import { FormView, RenderField, Button, primary } from '../../common/components/native';
+import { placeholderColor } from '../../common/components/native/styles';
 import { required, validateForm } from '../../../../../common/validation';
 
 const studentFormSchema = {
   firstName: [required],
   lastName: [required],
-  birthDate: [required],
-  content: [required]
+  content: [required],
 };
 
 const validate = values => validateForm(values, studentFormSchema);
 
-const StudentForm = ({ values, handleSubmit }) => {
+const StudentForm = ({ values, handleSubmit, t }) => {
   return (
-    <FormView style={{padding:10}}>
-      <Field name="firstName" component={RenderField} type="text" placeholder="First Name"  placeholderTextColor={placeholderColor} value={values.firstName} />
-      <Field name="lastName" component={RenderField} type="text" placeholder="Last Name"  placeholderTextColor={placeholderColor} value={values.lastName} />
-      <Field name="birthDate" component={RenderField} type="text" placeholder="Birth Date"  placeholderTextColor={placeholderColor} value={values.birthDate} />
-      <Field name="content" component={RenderField} type="text" placeholder="content"  placeholderTextColor={placeholderColor} value={values.content} />
-      <Button onPress={handleSubmit}>Save</Button>
+    <FormView style={{ paddingHorizontal: 15 }}>
+      <Field
+        name="firstName"
+        component={RenderField}
+        type="text"
+        //placeholder={t('student.field.firstName')}
+         placeholder="First Name"
+        value={values.firstName}
+        placeholderTextColor={placeholderColor}
+      />
+
+      <Field
+      name="lastName"
+      component={RenderField}
+      type="text"
+      //placeholder={t('student.field.lastName')}
+      placeholder="Last Name"
+      value={values.lastName}
+      placeholderTextColor={placeholderColor}
+    />
+
+      <Field
+        name="content"
+        component={RenderField}
+        type="text"
+        placeholder={t('student.field.content')}
+        value={values.content}
+        placeholderTextColor={placeholderColor}
+      />
+      <Button onPress={handleSubmit}>{t('student.btn.submit')}</Button>
     </FormView>
   );
 };
 
 StudentForm.propTypes = {
   handleSubmit: PropTypes.func,
-  setFieldTouched: PropTypes.func,
-  setFieldValue: PropTypes.func,
-  valid: PropTypes.bool,
-  values: PropTypes.object
+  onSubmit: PropTypes.func,
+  values: PropTypes.object,
+  t: PropTypes.func
 };
 
 const StudentFormWithFormik = withFormik({
   mapPropsToValues: props => ({
     firstName: props.student && props.student.firstName,
     lastName: props.student && props.student.lastName,
-    birthDate: props.student && props.student.birthDate,
-    content: props.student && props.student.content
+    content: props.student && props.student.content,
   }),
   validate: values => validate(values),
   handleSubmit(

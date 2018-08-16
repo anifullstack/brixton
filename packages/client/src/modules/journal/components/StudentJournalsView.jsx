@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+
 import translate from '../../../i18n';
 import { SwipeAction } from '../../common/components/native';
 
@@ -25,52 +26,32 @@ class StudentJournalsView extends React.PureComponent {
     editJournal: PropTypes.func.isRequired,
     deleteJournal: PropTypes.func.isRequired,
     subscribeToMore: PropTypes.func.isRequired,
-    onJournalSelect: PropTypes.func.isRequired
+    onJournalSelect: PropTypes.func.isRequired,
+    t: PropTypes.func
   };
 
   keyExtractor = item => `${item.id}`;
 
-  renderItemIOS = ({ item: { id, subject, activity, activityDate, content } }) => {
-    const { journal, deleteJournal, onJournalSelect } = this.props;
+  renderItemIOS = ({ item: { id, content } }) => {
+    const { journal, deleteJournal, onJournalSelect, t } = this.props;
     return (
       <SwipeAction
-        onPress={() =>
-          onJournalSelect({
-            id: id,
-            subject: subject,
-            activity: activity,
-            activityDate: activityDate,
-            content: content
-          })
-        }
+        onPress={() => onJournalSelect({ id: id, content: content })}
         right={{
-          text: 'Delete',
+          text: t('journal.btn.del'),
           onPress: () => this.onJournalDelete(journal, deleteJournal, onJournalSelect, id)
         }}
       >
-        {activity}
+        {content}
       </SwipeAction>
     );
   };
 
-  renderItemAndroid = ({ item: { id, subject, activity, activityDate, content } }) => {
+  renderItemAndroid = ({ item: { id, content } }) => {
     const { deleteJournal, onJournalSelect, journal } = this.props;
     return (
-      <TouchableWithoutFeedback
-        onPress={() =>
-          onJournalSelect({
-            id: id,
-            subject: subject,
-            activity: activity,
-            activityDate: activityDate,
-            content: content
-          })
-        }
-      >
+      <TouchableWithoutFeedback onPress={() => onJournalSelect({ id: id, content: content })}>
         <View style={styles.studentWrapper}>
-          <Text style={styles.text}>{activityDate}</Text>
-          <Text style={styles.text}>{subject}</Text>
-          <Text style={styles.text}>{activity}</Text>
           <Text style={styles.text}>{content}</Text>
           <TouchableOpacity
             style={styles.iconWrapper}
@@ -85,13 +66,7 @@ class StudentJournalsView extends React.PureComponent {
 
   onJournalDelete = (journal, deleteJournal, onJournalSelect, id) => {
     if (journal.id === id) {
-      onJournalSelect({
-        id: null,
-        subject: '',
-        activity: '',
-        activityDate: '',
-        content: ''
-      });
+      onJournalSelect({ id: null, content: '' });
     }
 
     deleteJournal(id);
@@ -99,28 +74,22 @@ class StudentJournalsView extends React.PureComponent {
 
   onSubmit = (journal, studentId, addJournal, editJournal, onJournalSelect) => values => {
     if (journal.id === null) {
-      addJournal(values.subject, values.activity, values.activityDate, values.content, studentId);
+      addJournal(values.content, studentId);
     } else {
-      editJournal(journal.id, values.subject, values.activity, values.activityDate, values.content);
+      editJournal(journal.id, values.content);
     }
 
-    onJournalSelect({
-      id: null,
-      subject: '',
-      activity: '',
-      activityDate: '',
-      content: ''
-    });
+    onJournalSelect({ id: null, content: '' });
     Keyboard.dismiss();
   };
 
   render() {
-    const { studentId, journal, addJournal, editJournal, journals, onJournalSelect } = this.props;
+    const { studentId, journal, addJournal, editJournal, journals, onJournalSelect, t } = this.props;
     const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS;
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Journal</Text>
+        <Text style={styles.title}>{t('journal.title')}</Text>
         <StudentJournalForm
           studentId={studentId}
           onSubmit={this.onSubmit(journal, studentId, addJournal, editJournal, onJournalSelect)}
@@ -136,13 +105,14 @@ class StudentJournalsView extends React.PureComponent {
   }
 }
 
+export default translate('student')(StudentJournalsView);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center'
-  }, 
+  },
   title: {
     fontSize: 20,
     fontWeight: '600',
@@ -151,7 +121,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingTop: 10
-  }, 
+  },
   text: {
     fontSize: 18
   },
@@ -168,11 +138,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
     borderBottomColor: '#000',
     borderBottomWidth: 0.3,
     height: 50,
     paddingLeft: 7
   }
 });
-export default translate('student')(StudentJournalsView);

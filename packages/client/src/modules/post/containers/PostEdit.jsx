@@ -83,7 +83,8 @@ class PostEdit extends React.Component {
   };
 
   render() {
-    return <PostEditView {...this.props} />;
+	 console.log("PostEdit||Render||Props|| " + JSON.stringify(this.props));
+   return <PostEditView {...this.props} />;
   }
 }
 

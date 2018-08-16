@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
+import translate from '../../../i18n';
 import { PageLayout } from '../../common/components/web';
 import StudentForm from './StudentForm';
 import StudentJournals from '../containers/StudentJournals';
 import settings from '../../../../../../settings';
 
-const onSubmit = (student, addStudent, editStudent) => values => {
-  if (student) {
-    editStudent(student.id, values.firstName, values.lastName, values.birthDate, values.content);
-  } else {
-    addStudent(values.firstName, values.lastName, values.birthDate, values.content);
-  }
+const onSubmit = (student, editStudent) => values => {
+  editStudent(student.id, values.firstName,values.lastName,values.birthDate ,values.content);
 };
 
-const StudentEditView = ({ loading, student, match, location, subscribeToMore, addStudent, editStudent }) => {
+const StudentEditView = ({ loading, student, match, location, subscribeToMore, editStudent, t }) => {
   let studentObj = student;
   // if new student was just added read it from router
   if (!studentObj && location.state) {
@@ -25,11 +22,13 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, a
 
   const renderMetaData = () => (
     <Helmet
-      title={`${settings.app.name} - Edit student`}
+    firstName={`${settings.app.name} - ${t('student.firstName')}`}
+	  lastName={`${settings.app.name} - ${t('student.lastName')}`}
+	  birthDate={`${settings.app.name} - ${t('student.birthDate')}`}
       meta={[
         {
           name: 'description',
-          content: 'Edit student example page'
+          content: t('student.meta')
         }
       ]}
     />
@@ -39,18 +38,21 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, a
     return (
       <PageLayout>
         {renderMetaData()}
-        <div className="text-center">Loading...</div>
+        <div className="text-center">{t('student.loadMsg')}</div>
       </PageLayout>
     );
   } else {
+	   console.log("StudentEditView||onSubmit||id+firstName,lastName,birtgDate+content" +student.id,student.firstName,student.lastName,student.birthDate,student.content);
     return (
       <PageLayout>
         {renderMetaData()}
         <Link id="back-button" to="/students">
-          Back
+          {t('student.btn.back')}
         </Link>
-        <h2>{student ? 'Edit' : 'Create'} Student</h2>
-        <StudentForm onSubmit={onSubmit(studentObj, addStudent, editStudent)} student={student} />
+        <h2>
+          {t(`student.label.edit`)} {t('student.label.student')}
+        </h2>
+        <StudentForm onSubmit={onSubmit(studentObj, editStudent)} student={student} />
         <br />
         {studentObj && (
           <StudentJournals
@@ -67,11 +69,11 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, a
 StudentEditView.propTypes = {
   loading: PropTypes.bool.isRequired,
   student: PropTypes.object,
-  addStudent: PropTypes.func.isRequired,
   editStudent: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  subscribeToMore: PropTypes.func.isRequired
+  subscribeToMore: PropTypes.func.isRequired,
+  t: PropTypes.func
 };
 
-export default StudentEditView;
+export default translate('student')(StudentEditView);

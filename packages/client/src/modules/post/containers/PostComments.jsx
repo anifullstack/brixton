@@ -119,6 +119,7 @@ class PostComments extends React.Component {
   };
 
   render() {
+	  console.log("PostComments||render||props" + JSON.stringify(this.props));
     return <PostCommentsView {...this.props} />;
   }
 }
