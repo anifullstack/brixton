@@ -28,7 +28,8 @@ const StudentJournalForm = ({ values, handleSubmit, journal, t }) => {
             component={RenderField}
             type="text"
             value={values.content}
-            placeholder={t('journal.label.field')}/>
+            placeholder={t('journal.label.field')}
+          />
         </Col>
         <Col xs={2}>
           <Button color="primary" type="submit" className="float-right">

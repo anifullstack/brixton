@@ -13,7 +13,6 @@ import ADD_JOURNAL_CLIENT from '../graphql/AddJournal.client.graphql';
 import JOURNAL_QUERY_CLIENT from '../graphql/JournalQuery.client.graphql';
 
 function AddJournal(prev, node) {
-		
   // ignore if duplicate
   if (prev.student.journals.some(journal => journal.id === node.id)) {
     return prev;
@@ -49,7 +48,7 @@ function DeleteJournal(prev, id) {
 class StudentJournals extends React.Component {
   static propTypes = {
     studentId: PropTypes.number.isRequired,
-   // journals: PropTypes.array.isRequired,
+    // journals: PropTypes.array.isRequired,
     //journal: PropTypes.object.isRequired,
     //onJournalSelect: PropTypes.func.isRequired,
     subscribeToMore: PropTypes.func.isRequired
@@ -109,8 +108,7 @@ class StudentJournals extends React.Component {
         let newResult = prev;
 
         if (mutation === 'CREATED') {
-		 newResult = AddJournal(prev, node);
-		 
+          newResult = AddJournal(prev, node);
         } else if (mutation === 'DELETED') {
           newResult = DeleteJournal(prev, id);
         }
@@ -121,7 +119,7 @@ class StudentJournals extends React.Component {
   };
 
   render() {
-	  console.log("StudentJournals||Render||Journal" + JSON.stringify(this.props.journal));
+    console.log('StudentJournals||Render||Journal' + JSON.stringify(this.props.journal));
     return <StudentJournalsView {...this.props} />;
   }
 }

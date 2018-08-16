@@ -73,9 +73,9 @@ class StudentList extends React.PureComponent {
             </Link>
           )
         },
-		
-		{
-           title: t('list.column.LastName'),
+
+        {
+          title: t('list.column.LastName'),
           dataIndex: 'lastName',
           key: 'lastName',
           render: (text, record) => (
@@ -84,8 +84,8 @@ class StudentList extends React.PureComponent {
             </Link>
           )
         },
-		
-		{
+
+        {
           title: t('list.column.birthDate'),
           dataIndex: 'birthDate',
           key: 'birthDate',
@@ -95,30 +95,30 @@ class StudentList extends React.PureComponent {
             </Link>
           )
         },
-		
+
         {
           title: t('list.column.actions'),
           key: 'actions',
           width: 50,
           render: (text, record) => (
-		   <div>
+            <div>
               <Link className="student-link" to={`/student/${record.id}`}>
                 <Button
-				//color="primary" size="sm" className="delete-button"
-				>
-                  Edit 
+                //color="primary" size="sm" className="delete-button"
+                >
+                  Edit
                 </Button>
               </Link>
-			  
-            <Button
-              //color="primary"
-              //size="sm"
-              //className="delete-button"
-              onClick={() => this.handleDeleteStudent(record.id)}
-            >
-              {t('student.btn.del')}
-            </Button>
-			</div>
+
+              <Button
+                //color="primary"
+                //size="sm"
+                //className="delete-button"
+                onClick={() => this.handleDeleteStudent(record.id)}
+              >
+                {t('student.btn.del')}
+              </Button>
+            </div>
           )
         }
       ];

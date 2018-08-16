@@ -8,7 +8,7 @@ import StudentForm from './StudentForm';
 import StudentJournals from '../containers/StudentJournals';
 
 const onSubmit = (student, editStudent) => values => {
-  editStudent(student.id, values.firstName,values.lastName,values.birthDate, values.content);
+  editStudent(student.id, values.firstName, values.lastName, values.birthDate, values.content);
 };
 
 const StudentEditView = ({ loading, student, navigation, subscribeToMore, editStudent, t }) => {

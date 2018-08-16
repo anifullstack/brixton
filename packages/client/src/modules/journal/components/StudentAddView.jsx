@@ -6,7 +6,7 @@ import translate from '../../../i18n';
 import StudentForm from './StudentForm';
 
 const onSubmit = addStudent => values => {
-  addStudent(values.firstName,values.lastName,values.birthDate, values.content);
+  addStudent(values.firstName, values.lastName, values.birthDate, values.content);
 };
 
 const StudentAddView = ({ addStudent }) => {

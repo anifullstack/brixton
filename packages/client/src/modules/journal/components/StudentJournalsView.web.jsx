@@ -46,7 +46,6 @@ class StudentJournalsView extends React.PureComponent {
   };
 
   render() {
-	 
     const { studentId, journals, journal, t } = this.props;
     const columns = [
       {
@@ -80,13 +79,16 @@ class StudentJournalsView extends React.PureComponent {
         )
       }
     ];
-    console.log("StudentJournalsView||render||props.student.id" + this.props.studentId);
+    console.log('StudentJournalsView||render||props.student.id' + this.props.studentId);
     return (
-      
-	  <div>
-	   
+      <div>
         <h3>{t('journal.title')}</h3>
-        <StudentJournalForm studentId={studentId} onSubmit={this.onSubmit()} initialValues={journal} journal={journal} />
+        <StudentJournalForm
+          studentId={studentId}
+          onSubmit={this.onSubmit()}
+          initialValues={journal}
+          journal={journal}
+        />
         <h1 />
         <Table dataSource={journals} columns={columns} />
       </div>

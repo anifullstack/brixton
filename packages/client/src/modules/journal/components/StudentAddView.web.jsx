@@ -10,15 +10,15 @@ import StudentForm from './StudentForm';
 import settings from '../../../../../../settings';
 
 const onSubmit = addStudent => values => {
-  addStudent(values.firstName,values.lastName,values.birthDate, values.content);
+  addStudent(values.firstName, values.lastName, values.birthDate, values.content);
 };
 
 const StudentAddView = ({ addStudent, t }) => {
   const renderMetaData = () => (
     <Helmet
       firstName={`${settings.app.name} - ${t('student.firstName')}`}
-	  lastName={`${settings.app.name} - ${t('student.lastName')}`}
-	  birthDate={`${settings.app.name} - ${t('student.birthDate')}`}
+      lastName={`${settings.app.name} - ${t('student.lastName')}`}
+      birthDate={`${settings.app.name} - ${t('student.birthDate')}`}
       meta={[
         {
           name: 'description',

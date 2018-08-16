@@ -19,9 +19,16 @@ class StudentAdd extends React.Component {
 
 export default graphql(ADD_STUDENT, {
   props: ({ ownProps: { history, navigation }, mutate }) => ({
-    addStudent: async (firstName,lastName,birthDate, content) => {
+    addStudent: async (firstName, lastName, birthDate, content) => {
       let studentData = await mutate({
-        variables: { input: { firstName: firstName.trim(),lastName:lastName.trim(),birthDate:birthDate.trim(), content: content.trim() } },
+        variables: {
+          input: {
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            birthDate: birthDate.trim(),
+            content: content.trim()
+          }
+        },
         optimisticResponse: {
           __typename: 'Mutation',
           addStudent: {
@@ -29,7 +36,7 @@ export default graphql(ADD_STUDENT, {
             id: null,
             firstName: firstName,
             lastName: lastName,
-            birthDate:birthDate,
+            birthDate: birthDate,
             content: content,
             journals: []
           }

@@ -35,12 +35,9 @@ StudentListHeaderRight.propTypes = {
 
 class StudentListScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    
     headerTitle: withI18N(HeaderTitle, { style: 'subTitle', i18nKey: 'list.subTitle' }),
     headerRight: withI18N(StudentListHeaderRight, { navigation }),
-    headerLeft: (
-      <IconButton iconName="menu" iconSize={32} iconColor="#fff" onPress={() => navigation.openDrawer()} />
-    ),
+    headerLeft: <IconButton iconName="menu" iconSize={32} iconColor="#fff" onPress={() => navigation.openDrawer()} />,
     headerStyle: { backgroundColor: '#64B5F6', marginTop: -15 }
   });
 
@@ -52,7 +49,6 @@ class StudentListScreen extends React.Component {
 StudentListScreen.propTypes = {
   navigation: PropTypes.object
 };
-
 
 const StudentEditTitle = ({ t }) => (
   <Text style={styles.subTitle}>
@@ -76,7 +72,6 @@ StudentAddTitle.propTypes = {
 
 class StudentEditScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-
     headerTitle: withI18N(StudentEditTitle, { navigation }),
     headerStyle: styles.header
   });
@@ -135,12 +130,10 @@ const styles = StyleSheet.create({
 });
 
 export default new Feature({
-
   drawerItem: {
     Student: {
       screen: StudentNavigator,
       navigationOptions: {
-  
         drawerLabel: withI18N(HeaderTitle, { i18nKey: 'list.title' })
       }
     }

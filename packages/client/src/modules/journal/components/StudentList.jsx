@@ -12,7 +12,7 @@ class StudentList extends React.PureComponent {
     students: PropTypes.object,
     navigation: PropTypes.object,
     deleteStudent: PropTypes.func.isRequired,
-   loadData: PropTypes.func.isRequired,
+    loadData: PropTypes.func.isRequired,
     t: PropTypes.func
   };
 
@@ -20,7 +20,7 @@ class StudentList extends React.PureComponent {
 
   renderItemIOS = ({
     item: {
-      node: { id, firstName,lastName }
+      node: { id, firstName, lastName }
     }
   }) => {
     const { deleteStudent, navigation, t } = this.props;
@@ -40,7 +40,7 @@ class StudentList extends React.PureComponent {
 
   renderItemAndroid = ({
     item: {
-      node: { id, firstName,lastName }
+      node: { id, firstName, lastName }
     }
   }) => {
     const { deleteStudent, navigation } = this.props;
@@ -52,16 +52,18 @@ class StudentList extends React.PureComponent {
       //   </TouchableOpacity>
       // </TouchableOpacity>
       <TouchableOpacity style={styles.studentWrapper} onPress={() => navigation.navigate('StudentJournal', { id })}>
-        <Text style={styles.text}>{firstName} {lastName}</Text>
-          <TouchableOpacity style={styles.iconWrapper} onPress={() => navigation.navigate('StudentEdit', { id })}>
-            <FontAwesome name="edit" size={20} style={{ color: '#3B5998' }} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteStudent(id)}>
-            <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
-          </TouchableOpacity>
+        <Text style={styles.text}>
+          {firstName} {lastName}
+        </Text>
+        <TouchableOpacity style={styles.iconWrapper} onPress={() => navigation.navigate('StudentEdit', { id })}>
+          <FontAwesome name="edit" size={20} style={{ color: '#3B5998' }} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconWrapper} onPress={() => deleteStudent(id)}>
+          <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
+        </TouchableOpacity>
       </TouchableOpacity>
-      );
-    };
+    );
+  };
 
   handleScrollEvent = () => {
     const {

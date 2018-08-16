@@ -19,13 +19,31 @@ const validate = values => validateForm(values, studentFormSchema);
 const StudentForm = ({ values, handleSubmit, submitting, t }) => {
   return (
     <Form name="student" onSubmit={handleSubmit}>
-      <Field name="firstName" component={RenderField} type="text" label={t('student.field.firstName')} value={values.firstName} />
-     
-	   <Field name="lastName" component={RenderField} type="text" label={t('student.field.lastName')} value={values.lastName} />
-	   
-		<Field name="birthDate" component={RenderField} type="text" label={t('student.field.birthDate')} value={values.birthDate} />
-	
-	 <Field
+      <Field
+        name="firstName"
+        component={RenderField}
+        type="text"
+        label={t('student.field.firstName')}
+        value={values.firstName}
+      />
+
+      <Field
+        name="lastName"
+        component={RenderField}
+        type="text"
+        label={t('student.field.lastName')}
+        value={values.lastName}
+      />
+
+      <Field
+        name="birthDate"
+        component={RenderField}
+        type="text"
+        label={t('student.field.birthDate')}
+        value={values.birthDate}
+      />
+
+      <Field
         name="content"
         component={RenderField}
         type="text"
@@ -51,8 +69,8 @@ StudentForm.propTypes = {
 const StudentFormWithFormik = withFormik({
   mapPropsToValues: props => ({
     firstName: props.student && props.student.firstName,
-	lastName: props.student && props.student.lastName,
-	birthDate: props.student && props.student.birthDate,
+    lastName: props.student && props.student.lastName,
+    birthDate: props.student && props.student.birthDate,
     content: props.student && props.student.content
   }),
   validate: values => validate(values),

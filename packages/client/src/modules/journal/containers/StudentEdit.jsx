@@ -83,7 +83,7 @@ class StudentEdit extends React.Component {
   };
 
   render() {
-	console.log("StudentEdit||Render||Props|| " + JSON.stringify(this.props));
+    console.log('StudentEdit||Render||Props|| ' + JSON.stringify(this.props));
     return <StudentEditView {...this.props} />;
   }
 }
@@ -109,9 +109,17 @@ export default compose(
   }),
   graphql(EDIT_STUDENT, {
     props: ({ ownProps: { history, navigation }, mutate }) => ({
-      editStudent: async (id, firstName,lastName,birthDate ,content) => {
+      editStudent: async (id, firstName, lastName, birthDate, content) => {
         await mutate({
-          variables: { input: { id, firstName: firstName.trim(),lastName: lastName.trim(),birthDate: birthDate.trim(), content: content.trim() } }
+          variables: {
+            input: {
+              id,
+              firstName: firstName.trim(),
+              lastName: lastName.trim(),
+              birthDate: birthDate.trim(),
+              content: content.trim()
+            }
+          }
         });
         if (history) {
           return history.push('/students');

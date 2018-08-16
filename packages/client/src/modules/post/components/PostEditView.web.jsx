@@ -33,25 +33,17 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
   );
 
   if (loading && !postObj) {
-	  console.log("PostForm||onSubmit||postObj+editPost" );
+    console.log('PostForm||onSubmit||postObj+editPost');
     return (
-	
-	
-	
-	
-	
-	
-     
       <PageLayout>
         {renderMetaData()}
         <div className="text-center">{t('post.loadMsg')}</div>
       </PageLayout>
     );
   } else {
-	  console.log("PostEditView||onSubmit||postObj+onSubmit" + onSubmit(postObj,editPost));
-	  console.log("PostEditView||onSubmit||id+title+content" +post.id ,post.title,post.content);
+    console.log('PostEditView||onSubmit||postObj+onSubmit' + onSubmit(postObj, editPost));
+    console.log('PostEditView||onSubmit||id+title+content' + post.id, post.title, post.content);
     return (
-	
       <PageLayout>
         {renderMetaData()}
         <Link id="back-button" to="/posts">
@@ -60,10 +52,9 @@ const PostEditView = ({ loading, post, match, location, subscribeToMore, editPos
         <h2>
           {t(`post.label.edit`)} {t('post.label.post')}
         </h2>
-		
-		   
+
         <PostForm onSubmit={onSubmit(postObj, editPost)} post={post} />
-		
+
         <br />
         {postObj && (
           <PostComments
