@@ -60,6 +60,7 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, e
         </h2>
         <StudentForm onSubmit={onSubmit(studentObj, editStudent)} student={student} />
         <br />
+		
         {studentObj && (
           <StudentJournals
             studentId={Number(match.params.id)}

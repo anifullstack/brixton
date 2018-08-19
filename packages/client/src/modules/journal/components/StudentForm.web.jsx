@@ -80,6 +80,7 @@ const StudentFormWithFormik = withFormik({
       props: { onSubmit }
     }
   ) {
+    console.log("StudentFormWeb|StudentFormWithFormik|handleSubmit");
     onSubmit(values);
   },
   enableReinitialize: true,

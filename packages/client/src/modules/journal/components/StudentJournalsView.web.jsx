@@ -18,16 +18,22 @@ class StudentJournalsView extends React.PureComponent {
     t: PropTypes.func
   };
 
-  handleEditJournal = (id, content) => {
+  handleEditJournal = (id,subject, activity, activityDate, content) => {
     const { onJournalSelect } = this.props;
-    onJournalSelect({ id, content });
+    onJournalSelect({ id, subject, activity, activityDate, content });
   };
 
   handleDeleteJournal = id => {
     const { journal, onJournalSelect, deleteJournal } = this.props;
 
     if (journal.id === id) {
-      onJournalSelect({ id: null, content: '' });
+      onJournalSelect({
+		id: null,
+		subject: '',
+        activity: '',
+        activityDate: '',
+        content: ''
+		  });
     }
 
     deleteJournal(id);
@@ -37,17 +43,38 @@ class StudentJournalsView extends React.PureComponent {
     const { journal, studentId, addJournal, editJournal, onJournalSelect } = this.props;
 
     if (journal.id === null) {
-      addJournal(values.content, studentId);
+      addJournal(values.subject, values.activity, values.activityDate,values.content, studentId);
     } else {
-      editJournal(journal.id, values.content);
+      editJournal(journal.id, values.subject, values.activity, values.activityDate,values.content);
     }
 
-    onJournalSelect({ id: null, content: '' });
+    onJournalSelect({
+	  id: null,
+	  subject: '',
+      activity: '',
+      activityDate: '', 
+	  content: '' 
+	  });
   };
 
   render() {
-    const { studentId, journals, journal, t } = this.props;
+    const { studentId, journals, journal,subjects, activitys, t } = this.props;
     const columns = [
+	   {
+        title: 'Activity Date',
+        dataIndex: 'activityDate',
+        key: 'activityDate'
+      },
+      {
+        title: 'subject',
+        dataIndex: 'subject',
+        key: 'subject'
+      },
+      {
+        title: 'activity',
+        dataIndex: 'activity',
+        key: 'activity'
+      },
       {
         title: t('journal.column.content'),
         dataIndex: 'content',
@@ -60,17 +87,17 @@ class StudentJournalsView extends React.PureComponent {
         render: (text, record) => (
           <div style={{ width: 120 }}>
             <Button
-              color="primary"
+              //color="primary"
               size="sm"
-              className="edit-journal"
+              //className="edit-journal"
               onClick={() => this.handleEditJournal(record.id, record.content)}
             >
               {t('journal.btn.edit')}
             </Button>{' '}
             <Button
-              color="primary"
+              //color="primary"
               size="sm"
-              className="delete-journal"
+             // className="delete-journal"
               onClick={() => this.handleDeleteJournal(record.id)}
             >
               {t('journal.btn.del')}
@@ -88,6 +115,8 @@ class StudentJournalsView extends React.PureComponent {
           onSubmit={this.onSubmit()}
           initialValues={journal}
           journal={journal}
+		   subjects={subjects}
+          activitys={activitys}
         />
         <h1 />
         <Table dataSource={journals} columns={columns} />
