@@ -10,6 +10,7 @@ export default class Activity {
   }
 
   subjects() {
+  console.log("subject|sql|activity|subjects");
     return knex
       .select('id', 'name')
       .from('subject')

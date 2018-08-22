@@ -19,6 +19,7 @@ class StudentEdit extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("Container|StudentEdit|constructor|props" + JSON.stringify(props));
     this.subscription = null;
   }
 
@@ -91,6 +92,7 @@ class StudentEdit extends React.Component {
 export default compose(
   graphql(STUDENT_QUERY, {
     options: props => {
+      console.log("Container|StudentEdit|compose|student-query|props|" + JSON.stringify(props))
       let id = 0;
       if (props.match) {
         id = props.match.params.id;

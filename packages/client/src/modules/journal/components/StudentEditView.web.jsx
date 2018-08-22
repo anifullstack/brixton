@@ -10,7 +10,7 @@ import StudentJournals from '../containers/StudentJournals';
 import settings from '../../../../../../settings';
 
 const onSubmit = (student, editStudent) => values => {
-  editStudent(student.id, values.firstName, values.lastName, values.birthDate, values.content);
+  editStudent(student.id, values.firstName,values.lastName,values.birthDate, values.content);
 };
 
 const StudentEditView = ({ loading, student, match, location, subscribeToMore, editStudent, t }) => {
@@ -23,8 +23,8 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, e
   const renderMetaData = () => (
     <Helmet
       firstName={`${settings.app.name} - ${t('student.firstName')}`}
-      lastName={`${settings.app.name} - ${t('student.lastName')}`}
-      birthDate={`${settings.app.name} - ${t('student.birthDate')}`}
+	  lastName={`${settings.app.name} - ${t('student.lastName')}`}
+	  birthDate={`${settings.app.name} - ${t('student.birthDate')}`}
       meta={[
         {
           name: 'description',
@@ -42,13 +42,6 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, e
       </PageLayout>
     );
   } else {
-    console.log(
-      'StudentEditView||onSubmit||id+firstName,lastName,birtgDate+content' + student.id,
-      student.firstName,
-      student.lastName,
-      student.birthDate,
-      student.content
-    );
     return (
       <PageLayout>
         {renderMetaData()}
@@ -60,7 +53,6 @@ const StudentEditView = ({ loading, student, match, location, subscribeToMore, e
         </h2>
         <StudentForm onSubmit={onSubmit(studentObj, editStudent)} student={student} />
         <br />
-		
         {studentObj && (
           <StudentJournals
             studentId={Number(match.params.id)}

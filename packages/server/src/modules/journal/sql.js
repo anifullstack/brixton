@@ -40,6 +40,7 @@ export default class Student {
   }
 
   student(id) {
+    console.log("journal|sql|student|id"+id);    
     return knex
       .select('id', 'firstName', 'lastName', 'birthDate', 'content')
       .from('student')
@@ -48,6 +49,7 @@ export default class Student {
   }
 
   addStudent({ firstName, lastName, birthDate, content }) {
+    console.log("journal|sql|addStudent|firstName|" + firstName);
     return knex('student')
       .insert({ firstName, lastName, birthDate, content })
       .returning('id');

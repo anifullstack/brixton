@@ -48,7 +48,9 @@ export default pubsub => ({
   },
   Mutation: {
     async addStudent(obj, { input }, context) {
+      console.log("journal|resolvers|mutation|addStudent|input|" + input);
       const [id] = await context.Student.addStudent(input);
+      console.log("journal|resolvers|mutation|addStudent|id|" + id);
       const student = await context.Student.student(id);
       // publish for student list
       pubsub.publish(STUDENTS_SUBSCRIPTION, {

@@ -10,6 +10,7 @@ export default pubsub => ({
       return await context.Activity.activitys();
     },
     async subjects(obj, {}, context) {
+     console.log("subject|resolver|pubsub|subjects");
       return await context.Activity.subjects();
     },
     activity(obj, { id }, context) {
