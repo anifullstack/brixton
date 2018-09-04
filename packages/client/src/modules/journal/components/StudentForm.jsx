@@ -12,6 +12,7 @@ import { required, validateForm } from '../../../../../common/validation';
 const studentFormSchema = {
   firstName: [required],
   lastName: [required],
+  birthDate:[required],
   content: [required]
 };
 
@@ -39,6 +40,16 @@ const StudentForm = ({ values, handleSubmit, t }) => {
         value={values.lastName}
         placeholderTextColor={placeholderColor}
       />
+	  
+	    <Field
+        name="birthDate"
+        component={RenderField}
+        type="text"
+        //placeholder={t('student.field.birthDate')}
+        placeholder="Birth Date"
+        value={values.birthDate}
+        placeholderTextColor={placeholderColor}
+      />
 
       <Field
         name="content"
@@ -64,6 +75,7 @@ const StudentFormWithFormik = withFormik({
   mapPropsToValues: props => ({
     firstName: props.student && props.student.firstName,
     lastName: props.student && props.student.lastName,
+	birthDate: props.student && props.student.birthDate,
     content: props.student && props.student.content
   }),
   validate: values => validate(values),

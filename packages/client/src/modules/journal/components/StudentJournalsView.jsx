@@ -32,11 +32,16 @@ class StudentJournalsView extends React.PureComponent {
 
   keyExtractor = item => `${item.id}`;
 
-  renderItemIOS = ({ item: { id, content } }) => {
+  renderItemIOS = ({ item: { id, subject, activity, activityDate,content } }) => {
     const { journal, deleteJournal, onJournalSelect, t } = this.props;
     return (
       <SwipeAction
-        onPress={() => onJournalSelect({ id: id, content: content })}
+        onPress={() => onJournalSelect({
+			id: id,
+			subject: subject,
+            activity: activity,
+            activityDate: activityDate,
+			content: content })}
         right={{
           text: t('journal.btn.del'),
           onPress: () => this.onJournalDelete(journal, deleteJournal, onJournalSelect, id)
@@ -47,15 +52,27 @@ class StudentJournalsView extends React.PureComponent {
     );
   };
 
-  renderItemAndroid = ({ item: { id, content } }) => {
+  renderItemAndroid = ({ item: { id, subject, activity, activityDate, content } }) => {
     const { deleteJournal, onJournalSelect, journal } = this.props;
     return (
-      <TouchableWithoutFeedback onPress={() => onJournalSelect({ id: id, content: content })}>
+      <TouchableWithoutFeedback 
+	  onPress={() => 
+	  onJournalSelect({ 
+	    id: id,
+		subject: subject,
+        activity: activity,
+        activityDate: activityDate,
+		content: content
+		})}>
         <View style={styles.studentWrapper}>
+		  <Text style={styles.text}>{activityDate}</Text>
+          <Text style={styles.text}>{subject}</Text>
+          <Text style={styles.text}>{activity}</Text>
           <Text style={styles.text}>{content}</Text>
           <TouchableOpacity
             style={styles.iconWrapper}
-            onPress={() => this.onJournalDelete(journal, deleteJournal, onJournalSelect, id)}
+            onPress={() =>
+			  this.onJournalDelete(journal, deleteJournal, onJournalSelect, id)}
           >
             <FontAwesome name="trash" size={20} style={{ color: '#3B5998' }} />
           </TouchableOpacity>
@@ -66,38 +83,83 @@ class StudentJournalsView extends React.PureComponent {
 
   onJournalDelete = (journal, deleteJournal, onJournalSelect, id) => {
     if (journal.id === id) {
-      onJournalSelect({ id: null, content: '' });
+      onJournalSelect({
+		  id: null,
+		  subject: "",
+          activity: "",
+          activityDate: "",
+		  content: '' });
     }
 
     deleteJournal(id);
   };
 
-  onSubmit = (journal, studentId, addJournal, editJournal, onJournalSelect) => values => {
+  onSubmit = (
+    journal,
+	studentId,
+	addJournal,
+	editJournal,
+	onJournalSelect
+	) => values => {
     if (journal.id === null) {
-      addJournal(values.content, studentId);
+      addJournal(
+		values.subject,
+        values.activity,
+        values.activityDate,
+	    values.content,
+		studentId
+		);
     } else {
-      editJournal(journal.id, values.content);
+      editJournal(
+	    journal.id,
+		values.subject,
+        values.activity,
+        values.activityDate,
+	    values.content);
     }
 
-    onJournalSelect({ id: null, content: '' });
+    onJournalSelect({
+		id: null,
+		subject: "",
+        activity: "",
+        activityDate: "",
+		content: ''
+		});
     Keyboard.dismiss();
   };
 
   render() {
-    const { studentId, journal, addJournal, editJournal, journals, onJournalSelect, t } = this.props;
+    const { 
+	  studentId,
+	  journal,
+	  addJournal,
+	  editJournal,
+	  journals,
+	  onJournalSelect,
+	  t
+	  } = this.props;
     const renderItem = Platform.OS === 'android' ? this.renderItemAndroid : this.renderItemIOS;
 
     return (
-      <View style={styles.container}>
+      <View >
         <Text style={styles.title}>{t('journal.title')}</Text>
         <StudentJournalForm
           studentId={studentId}
-          onSubmit={this.onSubmit(journal, studentId, addJournal, editJournal, onJournalSelect)}
+          onSubmit={this.onSubmit(
+		    journal,
+			studentId,
+			addJournal,
+			editJournal,
+			onJournalSelect
+			)}
           journal={journal}
         />
         {journals.length > 0 && (
           <View style={styles.list} keyboardDismissMode="on-drag">
-            <FlatList data={journals} keyExtractor={this.keyExtractor} renderItem={renderItem} />
+            <FlatList
+     			data={journals}
+				keyExtractor={this.keyExtractor}
+				renderItem={renderItem} />
           </View>
         )}
       </View>

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { PageLayout, Table, Button, Pagination } from '../../common/components/web';
+
+//import moment from "moment";
 import translate from '../../../i18n';
 import settings from '../../../../../../settings';
 import paginationConfig from '../../../../../../config/pagination';
@@ -68,7 +70,7 @@ class StudentList extends React.PureComponent {
           dataIndex: 'firstName',
           key: 'firstName',
           render: (text, record) => (
-            <Link className="student-link" to={`/student/${record.id}`}>
+            <Link className="student-link" to={`/student/${record.id}/journal`}>
               {text}
             </Link>
           )
@@ -92,7 +94,9 @@ class StudentList extends React.PureComponent {
           render: (text, record) => (
             <Link className="student-link" to={`/student/${record.id}`}>
               {text}
+			
             </Link>
+             //{moment(parseInt(text)).format("MM/DD/YYYY")}
           )
         },
 

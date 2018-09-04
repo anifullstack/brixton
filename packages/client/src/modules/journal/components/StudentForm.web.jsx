@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withFormik } from 'formik';
 
+//import moment from "moment";
+
 import translate from '../../../i18n';
 import Field from '../../../utils/FieldAdapter';
 import { Form, RenderField, Button } from '../../common/components/web';
@@ -17,9 +19,15 @@ const studentFormSchema = {
 const validate = values => validateForm(values, studentFormSchema);
 
 const StudentForm = ({ values, handleSubmit, submitting, t }) => {
+	//const tempBirthDate = isNaN(values.birthDate)
+    //? values.activityDate
+    //: moment(parseInt(values.birthDate)).format("MM/DD/YYYY");
+	
   return (
+  
     <Form name="student" onSubmit={handleSubmit}>
-      <Field
+  
+	<Field
         name="firstName"
         component={RenderField}
         type="text"

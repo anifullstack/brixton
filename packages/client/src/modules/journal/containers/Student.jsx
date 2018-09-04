@@ -30,7 +30,7 @@ export function AddStudent(prev, node) {
   };
 
   return update(prev, {
-    students: {
+    students: {//moment,
       totalCount: {
         $set: prev.students.totalCount + 1
       },

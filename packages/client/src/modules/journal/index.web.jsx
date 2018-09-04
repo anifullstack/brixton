@@ -7,7 +7,8 @@ import { MenuItem } from '../../modules/common/components/web';
 import Student from './containers/Student';
 import StudentEdit from './containers/StudentEdit';
 import StudentAdd from './containers/StudentAdd';
-
+//import StudentJournals from './containers/StudentJournals';
+import StudentJournalsView from '../journal/components/StudentJournalsView.web';
 import resources from './locales';
 import resolvers from './resolvers';
 import Feature from '../connector';
@@ -22,7 +23,9 @@ export default new Feature({
   route: [
     <Route exact path="/students" component={Student} />,
     <Route exact path="/student/new" component={StudentAdd} />,
-    <Route path="/student/:id" component={StudentEdit} />
+	 <Route path="/student/:id" component={StudentEdit} />,
+    //<Route path="/student/:id/journal" component={StudentJournals} />
+    <Route path="/journal" component={StudentJournalsView} />
   ],
   navItem: (
     <MenuItem key="/students">
